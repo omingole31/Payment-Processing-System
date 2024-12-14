@@ -1,0 +1,131 @@
+public class Payment
+{
+	
+	public void makePayment(double amount)
+	{		
+		if(validateAmount(amount))
+		{
+			System.out.println("\t---------------------------------------------------------");
+			System.out.println("\tPayment Processing via Cash..");
+			System.out.println("\tAmount Paid:"+amount);
+			System.out.println("\tPayment Successful...");
+		}
+		
+	}
+	public void makePayment(String cardHolderName,String creditCardNumber,double amount)
+	{
+		
+		if(validateCardNumber(creditCardNumber) && validateAmount(amount))
+		{
+			System.out.println("\t---------------------------------------------------------");
+			System.out.println("\tProcessing payment via Credit Card...");
+			System.out.println("\tCard Holder Name:"+cardHolderName);
+			System.out.println("\tCard Number:"+maskCardNumber(creditCardNumber));
+			System.out.println("\tAmount Paid:"+amount);
+			System.out.println("\tPayment Successful!");
+		}
+		
+	}
+	public void makePayment(String debitCardNumber,double amount)
+	{
+		if(validateCardNumber(debitCardNumber) && validateAmount(amount))
+		{
+			System.out.println("\t-----------------------------------------------");
+			System.out.println("\tProcessing payment via Debit Card...");
+			System.out.println("\tCard Number"+maskCardNumber(debitCardNumber));
+			System.out.println("\tAmount Paid Rs."+amount);
+			System.out.println("\tPayment Successful!");
+		}
+		
+	}
+	private  boolean validateAmount(double amount)
+	{
+		if(amount<=0)
+		{
+			System.err.println("\tAmount must be Greater than zero!");
+			return false;
+		}
+		else return true;
+		
+	}
+	private   boolean validateCardNumber(String cardNumber)
+	{
+		if(cardNumber.length()!=16)
+		{
+			System.err.println("\tInvalid Card Number!!!");
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	private  String maskCardNumber(String cardNumber)
+	{
+		return "****_****_****"+ cardNumber.substring(12);
+	
+	}
+
+}
+package scenario_based_programs;
+
+import java.util.Scanner;
+
+public class PaymentProcess {
+
+	public static void main(String[] args)
+	{
+		System.out.println("\t\t\t   Payment Menu");
+		System.out.println("\t----------------------------------------------------------");
+		System.out.println("\t   Please Select any One Payment Method From Menu");
+		System.out.println("\t----------------------------------------------------------");
+
+		System.out.println("\t\t 1) Payment By Using Cash");
+		System.out.println("\t\t 2) Payment By Using Credit Card");
+		System.out.println("\t\t 3) Payment By Using Debit Card");
+		System.out.println("\t----------------------------------------------------------");
+
+		Payment p=new Payment();
+		Scanner sc=new Scanner(System.in);
+		System.out.print("\t   Please Enter your Payment Choice [1/2/3] :");
+		int n=sc.nextInt();
+		System.out.println("\t----------------------------------------------------------");
+
+		switch(n)
+		{
+		case 1:
+			System.out.print("\t  Enter the Amount you want to pay through Cash:");
+			double amount=sc.nextDouble();
+			p.makePayment(amount);
+			break;
+			
+		case 2:
+			
+			System.out.print("\tEnter Your Name:");
+			String name=sc.next();
+			
+			System.out.print("\tEnter your 16 digit Credit Card Number:");
+			String crcardno=sc.next();
+			
+			System.out.print("\tEnter the Amount you want to pay through Credit Card:");
+			double amount1=sc.nextDouble();
+			p.makePayment(name, crcardno, amount1);		
+			break;
+			
+		case 3:
+			
+			System.out.print("\tEnter your 16 digit Debit Card Number:");
+			String dbcardno=sc.next();
+
+		    System.out.print("\tEnter the Amount you want to pay through Debit Card:");
+		    double amount2=sc.nextDouble();
+		    
+		    p.makePayment(dbcardno, amount2);
+  
+		    break;
+		}
+		
+	}
+
+}
+
